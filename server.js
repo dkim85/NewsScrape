@@ -11,6 +11,9 @@ const app = express();
 // Setting up Express Router
 const router = express.Router();
 
+// requiring and passing the routes file to router object
+require("./config/routes")(router);
+
 // Asssigning public folder as a static directory
 app.use(express.static(__dirname + "/public"));
 
@@ -18,7 +21,7 @@ app.use(express.static(__dirname + "/public"));
 app.engine("handlebars", expressHandlebars({
   defaultLayout: "main"
 }));
-
+app.set("view engine", "handlebars");
 // body-parser in the app
 app.use(bodyParser.urlencoded({
   extended: false
@@ -39,7 +42,7 @@ mongoose.connect(db, function(error) {
   }
   // showing its working
   else {
-    console.log("Si senor! esta madre funciona!");
+    console.log("connected-good job!");
   }
 });
 
