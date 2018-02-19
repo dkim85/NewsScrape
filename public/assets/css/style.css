@@ -103,11 +103,11 @@ font-size: 16px;
 }
 /* break */
 .navbar-inverse .navbar-nav>li>a.scrape-new:hover {
-  background: olive;
+  background: gray;
 }
 
 .navbar-inverse .navbar-nav>li>a.scrape-new:active {
-  background: red;
+  background: lightblue;
 }
 
 .scrape-new {
@@ -124,7 +124,7 @@ textarea {
 }
 
 .bootbox-body .btn {
-  float: right;
+  /* float: right; */
   margin: 5px;
 }
 
