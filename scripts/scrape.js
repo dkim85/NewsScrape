@@ -3,6 +3,7 @@
 const request = require("request");
 const cheerio = require("cheerio");
 
+// cb stands for callback
 const scrape = function (cb) {
   request("http://www.bbc.com/", function(err, res, body){
         const $ = cheerio.load(body);
@@ -18,7 +19,7 @@ const scrape = function (cb) {
 
             let dataToAdd ={
               headline: headNeat,
-              summary: sumneat
+              summary: sumNeat
             };
 
             articles.push(dataToAdd);
