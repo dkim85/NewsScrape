@@ -1,10 +1,10 @@
 // controller for the notes
 
-const Note = require("../models.Note");
+const Note = require("../models/Note");
 let createDate = require("../scripts/date");
 
 module.exports = {
-  get: function(data, cd) {
+  get: function(data, cb) {
     Note.find({
       _headlineId: data._id
     }, cb);

@@ -73,7 +73,7 @@ $(document).ready(function () {
       "</div>"
     ].join(""));
     // appending the the page
-    articleContainer.appen(emptyAlert);
+    articleContainer.append(emptyAlert);
   }
 
   function handleArticleSave() {
