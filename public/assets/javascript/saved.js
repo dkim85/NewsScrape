@@ -66,6 +66,32 @@ $(document).ready(function() {
     articleContainer.append(emptyAlert);
   }
 
+  function renderNotesList(data) {
+    const notesToRender = [];
+    let currentNote;
+    if (!data.notes.length) {
+      currentArticle = [
+        "<li class'list-group-item'>",
+        "No notes for this article yet",
+        "</li>"
+      ].join("");
+      notesToRender.push(currentNote);
+    }
+    else {
+      for (let i = 0; i < data.notes.length; i++) {
+        currentNote = $([
+          "<li class='list-group-item note'>",
+          data.notes[i].noteText,
+          "<button class='btn btn-danger note-delete'>x</button>",
+          "</li>"
+        ].join(""));
+        currentId.Note.children("button").data("_id", data.notes[i]._id);
+        notesToRender.push(currentNote);
+      }
+    }
+    $(".note-container").append(notesToRender);
+  }
+
   function handleArticleDelete() {
     let articleToDelete = $(this).parents(".panel").data();
     $ajax({
@@ -105,4 +131,28 @@ $(document).ready(function() {
       renderNotesList(noteData);
     });
   }
-})
+
+  function handleNoteSave() {
+    let noteData;
+    let newNote = $(".bootbox-body textarea").val().trim();
+    if(newNote) {
+      noteData = {
+        _id: $(this).data("article")._id
+        noteText: newNote
+      };
+      $.post("/api/notes", noteData).then(function() {
+        bootbox.hideAll();
+      });
+    }
+  }
+
+  function handleNoteDelete() {
+    let noteToDelete = $(this).data("_id");
+    $.ajax({
+      url: "/api/notes/" + noteToDelete,
+      method: "DELETE"
+    }).then(function() {
+      bootbox.hideAll();
+    });
+  }
+});
