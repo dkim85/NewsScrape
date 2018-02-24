@@ -4,10 +4,10 @@ const request = require("request");
 const cheerio = require("cheerio");
 
 // cb stands for callback
-const scrape = function (cb) {
+let scrape = function (cb) {
   request("http://www.bbc.com/", function(err, res, body){
-        const $ = cheerio.load(body);
-        const articles = [];
+        let $ = cheerio.load(body);
+        let articles = [];
         $(".article-info").each(function(i, element){
 
           let head = $(this).children(".article-title").text().trim();
