@@ -61,10 +61,15 @@ module.exports = function(router) {
       res.json(data);
     });
   });
-  router.delete("/api.notes/:id", function(req, res) {
+  router.delete("/api.notes/:id", function(req, res){
     let query = {};
     query._id= req.params.id;
     notesController.delete(query, function(err, data){
+      res.json(data);
+    });
+  });
+  router.post("/api/notes", function(req, res){
+    notesController.save(req.body, function(data){
       res.json(data);
     });
   });
