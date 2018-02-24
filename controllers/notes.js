@@ -1,4 +1,4 @@
-// controller for notes
+// controller for the notes
 
 const Note = require("../models.Note");
 let createDate = require("../scripts/date");
@@ -25,4 +25,9 @@ module.exports = {
       }
     });
   },
+  delete: function(data,cb) {
+    Note.remove({
+      _id: data._id
+    }, cb);
+  }
 }
