@@ -1,6 +1,6 @@
 // Bring scrape script and create scripts
 const scrape = require("../scripts/scrape");
-const createDate = require ("../scripts/date");
+const makeDate = require ("../scripts/date");
 
 // bring headline and mongoose models
 const Headline = require("../models/Headline");
@@ -10,15 +10,15 @@ module.exports = {
     scrape(function(data) {
       let articles = data;
       for (let i=0; i < articles.length; i++) {
-        articles[i].date = createDate();
+        articles[i].date = makeDate();
         articles[i].saved = false;
       }
       Headline.collection.insertMany(articles, {ordered:false}, function(err,docs) {
-        cb(err,docs);
+        cb(err, docs);
       });
     });
   },
-  // delete an article funcrion
+  // delete property
   delete: function(query, cb) {
     Headline.remove(query, cb);
   },

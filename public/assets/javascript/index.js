@@ -2,7 +2,7 @@
 $(document).ready(function () {
   // setting reference article-container div
   // adding "scrape new article" buttons
-  const articleContainer = $(".article-container");
+  let articleContainer = $(".article-container");
   $(document).on("click", ".btn.save", handleArticleSave);
   $(document).on("click", ".scrape-new", handleArticleScrape);
 
@@ -12,7 +12,7 @@ $(document).ready(function () {
   function initPage() {
     // empty article container, run ajax request for unsaved headlines
     articleContainer.empty();
-    $.get("/api/headline?saved=false")
+    $.get("/api/headlines?saved=false")
       .then(function (data) {
         // render headlines if it's available
         if (data && data.length) {
@@ -26,7 +26,7 @@ $(document).ready(function () {
   }
 
   function renderArticles(articles) {
-    const articlePanels = [];
+    let articlePanels = [];
     for (let i = 0; 1 < articles.length; i++) {
       articlePanels.push(createPanel(articles[i]));
     }
@@ -42,7 +42,7 @@ $(document).ready(function () {
       $(["<div class='panel panel-default'>",
         "<div class='panel-heading'>",
         "<h3>",
-        article.headline,
+        article.headlines,
         "<a class='btn btn-sucesss save'>",
         "Save Article",
         "</a>",
@@ -65,10 +65,11 @@ $(document).ready(function () {
       "</div>",
       "<div class='panel panel-default'>",
       "<div class='panel-heading text-center'>",
-      "<h3> What do oyu like to do?</h3>",
+      "<h3> What do you like to do?</h3>",
       "</div>",
       "<div class='panel-body text-center'>",
       "<h4><a class='scrape-new'>Try to scrape new articles</a></h4>",
+      "<h4><a href='/saved'> Go to Saved Articles</a></h4>",
       "</div>",
       "</div>"
     ].join(""));
@@ -78,7 +79,7 @@ $(document).ready(function () {
 
   function handleArticleSave() {
     let articleToSave = $(this).parents(".panel").data();
-    articleToSave.save = true;
+    articleToSave.saved = true;
     $.ajax({
       method: "PATCH",
       url: "/api/Headlines",

@@ -1,23 +1,20 @@
-// require request and cheerio to make screpes possible
 
 const request = require("request");
 const cheerio = require("cheerio");
 
-// cb stands for callback
 let scrape = function (cb) {
-  request("http://www.bbc.com/", function(err, res, body){
+  request("http://www.nytimes.com", function(err, res, body){
         let $ = cheerio.load(body);
         let articles = [];
-        $(".article-info").each(function(i, element){
+        $(".theme-summary").each(function(i, element){
 
-          let head = $(this).children(".article-title").text().trim();
-          let sum = $(this).children(".excerpt").text().trim();
-          // source bookmarked on chrome tsk
+          let head = $(this).children(".story-heading").text().trim();
+          let sum = $(this).children(".summary").text().trim();
           if (head && sum) {
             let headNeat = head.replace(/(\r\n|\n|\r|\t|\s+)/gm, " ").trim();
-            let sumneat = sum.replace(/(\r\n|\n|\r|\t|\s+)/gm, " ").trim();
+            let sumNeat = sum.replace(/(\r\n|\n|\r|\t|\s+)/gm, " ").trim();
 
-            let dataToAdd ={
+            let dataToAdd = {
               headline: headNeat,
               summary: sumNeat
             };

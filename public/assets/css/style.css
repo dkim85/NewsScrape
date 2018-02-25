@@ -11,7 +11,7 @@ html {
 
 body {
   margin-bottom: 80px;
-  background-image: ("../images/papel.png")
+  background-image: ("../images/goal.jpg")
 }
 
 .footer {
@@ -48,7 +48,7 @@ body {
 
 .jumbotron .background-image {
   height: 100%;
-  background-image: url(../images/papel.png);
+  background-image: url(../images/goal.jpg);
   background-size: cover;
 }
 

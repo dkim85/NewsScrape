@@ -1,15 +1,15 @@
-const createDate = function() {
-  let date = new Date();
+let makeDate = function() {
+  let d = new Date();
   let formattedDate = "";
 
-  formattedDate += (date.getMonth() + 1) + "_";
+  formattedDate += (d.getMonth() + 1) + "_";
 
-  formattedDate += date.getDate() + "_";
+  formattedDate += d.getDate() + "_";
 
-  formattedDate += date.getFullYear();
+  formattedDate += d.getFullYear();
 
   return formattedDate;
 
 };
 
-module.exports = createDate;
+module.exports = makeDate;

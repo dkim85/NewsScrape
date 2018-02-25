@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  const articleContainer = $(".article-container");
+  let articleContainer = $(".article-container");
 
   $(document).on("click", "btn.delete", handleArticleDelete);
   $(document).on("click", "btn.notes", handleArticleNotes);
@@ -10,7 +10,7 @@ $(document).ready(function() {
 
   function initPage() {
     articleContainer.empty();
-    $.get("/api/healdines?saved=true").then(function(data) {
+    $.get("/api/headlines?saved=true").then(function(data) {
       if (data && data.length) {
         renderArticles(data);
       }else {
@@ -19,11 +19,11 @@ $(document).ready(function() {
     });
   }
   function renderArticles(articles) {
-    let articlesPanels = [];
-    for (let i=0; i < articles.lengtj; i++) {
-      articlesPanels.push(createPanel(articles[i]));
+    let articlePanels = [];
+    for (let i=0; i < articles.length; i++) {
+      articlePanels.push(createPanel(articles[i]));
     }
-    articleContainer.append(articlesPanels);
+    articleContainer.append(articlePanels);
   } 
 
   function createPanel(article) {
@@ -33,7 +33,7 @@ $(document).ready(function() {
         "<h3>",
         article.headline,
         "<a class='btn btn-danger delete'>",
-        "Delete form Saved",
+        "Delete from Saved",
         "</a>",
         "<a class='btn btn-info notes'>Article Notes</a>",
         "</h3>",
@@ -58,7 +58,7 @@ $(document).ready(function() {
         "<h3> Would you like to browse available articles?</h3>",
         "</div>",
         "<div class='panel-body text-center'>",
-        "<h4><a href='Browse Articles'></a></h4>",
+        "<h4><a href='/'>Browse Articles'></a></h4>",
         "</div>",
         "</div>"
       ].join(""));
@@ -67,10 +67,10 @@ $(document).ready(function() {
   }
 
   function renderNotesList(data) {
-    const notesToRender = [];
+    let notesToRender = [];
     let currentNote;
     if (!data.notes.length) {
-      currentArticle = [
+      currentNote = [
         "<li class'list-group-item'>",
         "No notes for this article yet",
         "</li>"
@@ -111,7 +111,7 @@ $(document).ready(function() {
         "<div class='container-fluid text-center'>",
         "<h4>Notes for Article: ",
         currentArticle._id,
-        "</h4>"
+        "</h4>",
         "<hr />",
         "<ul class='list-group note-container'>",
         "</ul>",
@@ -137,7 +137,7 @@ $(document).ready(function() {
     let newNote = $(".bootbox-body textarea").val().trim();
     if(newNote) {
       noteData = {
-        _id: $(this).data("article")._id
+        _id: $(this).data("article")._id,
         noteText: newNote
       };
       $.post("/api/notes", noteData).then(function() {

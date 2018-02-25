@@ -1,7 +1,7 @@
 // controller for the notes
 
 const Note = require("../models/Note");
-let createDate = require("../scripts/date");
+const makeDate = require("../scripts/date");
 
 module.exports = {
   get: function(data, cb) {
@@ -12,10 +12,10 @@ module.exports = {
   save: function(data,cb) {
     let newNote = {
       _headlineId: data._id,
-      data: createDate(),
+      data: makeDate(),
       noteText: data.noteText
     };
-    Note.create(newNOte, function (err, doc) {
+    Note.create(newNote, function (err, doc) {
       if (err) {
         console.log(err);
       }
@@ -30,4 +30,4 @@ module.exports = {
       _id: data._id
     }, cb);
   }
-}
+};
