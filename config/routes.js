@@ -6,7 +6,7 @@ const headlinesController = require("../controllers/headlines");
 const notesController = require("../controllers/notes");
 
 module.exports = function(router) {
-  // this route is taking me to homepage
+  // this route renders homepage
   router.get("/", function(req, res) {
     res.render("home");
   });

@@ -72,7 +72,7 @@ $(document).ready(function() {
     if (!data.notes.length) {
       currentNote = [
         "<li class'list-group-item'>",
-        "No notes for this article yet",
+        "No notes for this article yet.",
         "</li>"
       ].join("");
       notesToRender.push(currentNote);
@@ -85,7 +85,7 @@ $(document).ready(function() {
           "<button class='btn btn-danger note-delete'>x</button>",
           "</li>"
         ].join(""));
-        currentId.Note.children("button").data("_id", data.notes[i]._id);
+        currentNote.children("button").data("_id", data.notes[i]._id);
         notesToRender.push(currentNote);
       }
     }
@@ -94,7 +94,7 @@ $(document).ready(function() {
 
   function handleArticleDelete() {
     let articleToDelete = $(this).parents(".panel").data();
-    $ajax({
+    $.ajax({
       method: "DELETE",
       url: "/api/headlines/" + articleToDelete._id
     }).then (function(data) {
@@ -106,7 +106,7 @@ $(document).ready(function() {
 
   function handleArticleNotes() {
     let currentArticle = $(this).parents(".panel").data();
-    $.get("/api/notes" + currentArticle._id).then(function(data) {
+    $.get("/api/notes/" + currentArticle._id).then(function(data) {
       let modalText = [
         "<div class='container-fluid text-center'>",
         "<h4>Notes for Article: ",
@@ -119,7 +119,7 @@ $(document).ready(function() {
         "<button class='btn btn-success save'>Save note</button>",
         "</div>"
       ].join("");
-      bootox.dialog({
+      bootbox.dialog({
         message: modalText,
         closeButton: true
       });

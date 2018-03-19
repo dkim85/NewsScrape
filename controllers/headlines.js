@@ -18,7 +18,7 @@ module.exports = {
       });
     });
   },
-  // delete property
+  // delete fucntion
   delete: function(query, cb) {
     Headline.remove(query, cb);
   },

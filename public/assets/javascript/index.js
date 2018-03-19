@@ -1,5 +1,5 @@
 // global
-$(document).ready(function () {
+$(document).ready(function() {
   // setting reference article-container div
   // adding "scrape new article" buttons
   let articleContainer = $(".article-container");
@@ -13,7 +13,7 @@ $(document).ready(function () {
     // empty article container, run ajax request for unsaved headlines
     articleContainer.empty();
     $.get("/api/headlines?saved=false")
-      .then(function (data) {
+      .then(function(data) {
         // render headlines if it's available
         if (data && data.length) {
           renderArticles(data);
@@ -27,7 +27,7 @@ $(document).ready(function () {
 
   function renderArticles(articles) {
     let articlePanels = [];
-    for (let i = 0; 1 < articles.length; i++) {
+    for (let i = 0; i < articles.length; i++) {
       articlePanels.push(createPanel(articles[i]));
     }
     // once we have all the HTML for the articles stores in the array, append them ti the articlePanels container
@@ -42,7 +42,7 @@ $(document).ready(function () {
       $(["<div class='panel panel-default'>",
         "<div class='panel-heading'>",
         "<h3>",
-        article.headlines,
+        article.headline,
         "<a class='btn btn-sucesss save'>",
         "Save Article",
         "</a>",
@@ -82,7 +82,7 @@ $(document).ready(function () {
     articleToSave.saved = true;
     $.ajax({
       method: "PATCH",
-      url: "/api/Headlines",
+      url: "/api/headlines",
       data: articleToSave
     })
     .then(function(data) {
